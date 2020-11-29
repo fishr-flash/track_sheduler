@@ -1,5 +1,5 @@
 import React from 'react';
-import {msToPixels} from "./utils";
+import {msToPixels, msToTime} from "./utils";
 import {connect} from "react-redux";
 import {ON_CHANGE_FILES} from "./consts";
 
@@ -17,6 +17,9 @@ const TrackLine = ( props )=>{
     const styleLeft = 10;
     const minimumLength = 10;
 
+    const startTime = msToTime( start_ms );
+    const endTime = msToTime( end_ms );
+    const durationTime = msToTime( end_ms - start_ms );
 
 
     const onMouseDownArrow = ( e )=>{
@@ -131,7 +134,10 @@ const TrackLine = ( props )=>{
           <div className="track_line"
                style={{ left: lineLeft, width: lineWidth}}
                onMouseDown={ onMouseDownTrack } >
-              <div className="in_info">02:12 - 03:14 ( 2ч 22мин )</div>
+              <div className="in_info">
+                  {`${ startTime.hours}:${ startTime.minutes}`} - {`${ endTime.hours}:${ endTime.minutes} 
+                  ( ${ durationTime.hours}ч ${ durationTime.minutes }мин)`}
+              </div>
           </div>
           <div className="arrow_right"
                style={{ left: lineLeft }}

@@ -30,11 +30,12 @@ export const msToTime = ( ms )=>{
     let hours = ( dt.getHours() - zeroDate.getHours() ).toString();
     if( hours.length === 1 ) hours = '0' + hours;
 
-    let minutes = ( dt.getMinutes() - zeroDate.getMinutes() ).toString();
-    if( minutes.length === 1 ) minutes = '0' + minutes;
+    let minutes = ( dt.getMinutes() - zeroDate.getMinutes() );
+    if( dt.getSeconds() - zeroDate.getSeconds() ) minutes += 1;
+    if( minutes.toString().length === 1 ) minutes = '0' + minutes;
 
     return{
       hours
-        , minutes
+        , minutes: minutes.toString()
     };
 };

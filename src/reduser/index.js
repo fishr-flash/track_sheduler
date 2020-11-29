@@ -5,8 +5,8 @@ export const store = {
     tracks:[
         {
             name: 'Track I'
-            , start_ms: 3600000
-            , end_ms: 3600000 * 12
+            , start_ms: 5580000
+            , end_ms: 3600000 * 12.16
 
         }
         , {
@@ -16,12 +16,12 @@ export const store = {
         }
         , {
             name: 'Track IITrack IITrack IITrack IITrack IITrack II'
-            , start_ms: 3600000 * 8
-            , end_ms: 3600000 * 7
+            , start_ms: 11880000
+            , end_ms: 3600000 * 15.38
         }
         , {
             name: 'IITrack IITrack IITrack II'
-            , start_ms: 0
+            , start_ms: 150000
             , end_ms: 3600000
         }
     ]
