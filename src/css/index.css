@@ -93,9 +93,10 @@ th:first-child, td:first-child {
 }
 th:nth-child(2),
 th:nth-child(28){
-    width: 20px;
-    min-width: 20px;
+    width: 19px;
+    min-width: 19px;
     background-color: rgba(114,114,114,1.00);
+
 }
 
 span{
@@ -121,14 +122,14 @@ span{
     cursor: pointer;
     position: relative;
     z-index: 2;
-
+    overflow: hidden;
 }
 
 
 .arrow_left {
     display: inline-block;
     position: relative;
-    left: 2px;
+
     width: 20px;
     height: 16px;
     background-repeat: no-repeat;
@@ -141,7 +142,7 @@ span{
 .arrow_right {
     display: inline-block;
     position: relative;
-    left: -3px;
+
     width: 20px;
     height: 16px;
     background-repeat: no-repeat;
@@ -166,4 +167,5 @@ span{
     font-weight: bold;
     color: rgba(215,215,215,1.00);
     position: relative;
+
 }

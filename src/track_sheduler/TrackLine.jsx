@@ -6,7 +6,7 @@ const TrackLine = ( props )=>{
             , id } = props;
 
 
-    const styleLeft = 20;
+    const styleLeft = 10;
     const minimumLength = 10;
 
 
@@ -14,6 +14,7 @@ const TrackLine = ( props )=>{
         const arrow = e.target;
         arrow.onmousedown = null;
         arrow.ondragstart = ()=> false;
+
 
         const rectArrow = arrow.getBoundingClientRect();
         const shellTrackLine = arrow.parentNode;
@@ -40,6 +41,7 @@ const TrackLine = ( props )=>{
                 trackLine.style.width = ( ( rightEdge - nowLeft ) + styleLeft ) + 'px';
                 rightArrow.style.left = ( nowLeft ) + 'px';
 
+
             } else{
 
                 let nowWidth = e.clientX - trackLineRect.left - shiftX;
@@ -47,6 +49,7 @@ const TrackLine = ( props )=>{
                 if( nowWidth < minimumLength ) nowWidth = minimumLength;
                 else if( nowWidth > maxWidth ) nowWidth = maxWidth;
                 trackLine.style.width = nowWidth + 'px';
+
             }
 
 
@@ -121,8 +124,8 @@ const TrackLine = ( props )=>{
           <div className="arrow_right"
                onMouseDown={ onMouseDownArrow }
           > </div>
-          <div className="out_info">02:12 - 03:14 ( 2ч 22мин )</div>
       </div>
+
 
   );
 };

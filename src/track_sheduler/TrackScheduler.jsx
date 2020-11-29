@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/index.css';
 import Tracks from "./Tracks";
+import OutInfoLayer from "./OutInfoLayer";
 
 const TrackScheduler = ()=>{
     return(
@@ -45,6 +46,7 @@ const TrackScheduler = ()=>{
                         <Tracks />
                     </tbody>
                 </table>
+                <OutInfoLayer/>
             </section>
         </main>
     )
