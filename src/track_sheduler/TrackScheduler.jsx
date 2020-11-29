@@ -2,12 +2,13 @@ import React from 'react';
 import '../css/index.css';
 import Tracks from "./Tracks";
 import OutInfoLayer from "./OutInfoLayer";
+import TrackUploader from "./TrackUploader";
 
 const TrackScheduler = ()=>{
     return(
         <main role="main">
             <section>
-                <button>Добавить трек</button>
+                <TrackUploader />
                 <table>
                     <caption>Расписание</caption>
                     <thead>
