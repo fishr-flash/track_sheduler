@@ -1,22 +1,28 @@
 import servantFileUpload from "./servantFileUpload";
-import {ACTION_INIT, ON_CHANGE_FILES} from "../track_sheduler/consts";
+import {ACTION_INIT, ON_CHANGE_FILES } from "../track_sheduler/consts";
 
 export const store = {
     tracks:[
         {
             name: 'Track I'
-            , start_time: 12456
-            , end_time: 1425
+            , start_ms: 3600000
+            , end_ms: 3600000 * 12
+
         }
         , {
             name: 'Track II'
-            , start_time: 12456
-            , end_time: 1425
+            , start_ms: 3600000 * 1.5
+            , end_ms: 3600000 * 4
         }
         , {
             name: 'Track IITrack IITrack IITrack IITrack IITrack II'
-            , start_time: 12456
-            , end_time: 1425
+            , start_ms: 3600000 * 8
+            , end_ms: 3600000 * 7
+        }
+        , {
+            name: 'IITrack IITrack IITrack II'
+            , start_ms: 0
+            , end_ms: 3600000
         }
     ]
 

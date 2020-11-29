@@ -1,13 +1,22 @@
 import React from 'react';
+import {msToPixels} from "./utils";
+import {connect} from "react-redux";
+import {ON_CHANGE_FILES} from "./consts";
 
 const TrackLine = ( props )=>{
-  const { start_time
-            , end_time
+  const { start_ms
+            , end_ms
             , id } = props;
 
 
+
+
+    const lineLeft = msToPixels( start_ms );
+    const lineWidth = msToPixels( end_ms - start_ms );
+
     const styleLeft = 10;
     const minimumLength = 10;
+
 
 
     const onMouseDownArrow = ( e )=>{
@@ -111,17 +120,21 @@ const TrackLine = ( props )=>{
     };
 
 
+
     return(
 
       <div className="shell_track_line">
           <div className="arrow_left"
+               style={{ left: lineLeft }}
                onMouseDown={ onMouseDownArrow }
           > </div>
           <div className="track_line"
+               style={{ left: lineLeft, width: lineWidth}}
                onMouseDown={ onMouseDownTrack } >
               <div className="in_info">02:12 - 03:14 ( 2ч 22мин )</div>
           </div>
           <div className="arrow_right"
+               style={{ left: lineLeft }}
                onMouseDown={ onMouseDownArrow }
           > </div>
       </div>
@@ -130,4 +143,11 @@ const TrackLine = ( props )=>{
   );
 };
 
-export default TrackLine;
+export default connect(
+    null
+    ,dispatch => ({
+        onChangeFiles: ( v ) => {
+            dispatch( {type: ON_CHANGE_FILES, value: v })
+        }
+    })
+)( TrackLine );

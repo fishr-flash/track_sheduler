@@ -11,8 +11,8 @@ const Tracks = ( { tracks })=> {
             <td colSpan="27">
                 <TrackLine
                     id={ i }
-                    start_time={ v.start }
-                    end_time={v.end } />
+                    start_ms={ v.start_ms }
+                    end_ms={v.end_ms } />
 
             </td>
         </tr>

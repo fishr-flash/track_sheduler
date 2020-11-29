@@ -13,8 +13,8 @@ const servantFileUpload = ( state, action )=>{
     tracks = [ ...tracks, ...value.map( ( v ) =>{
         return{
             name: v
-            , start_time: 0
-            , end_time: 36000
+            , start_ms: 0
+            , end_ms: 3600000
         }
     })];
 

@@ -129,13 +129,14 @@ span{
     position: relative;
     z-index: 2;
     overflow: hidden;
+    left: 0
 }
 
 
 .arrow_left {
     display: inline-block;
     position: relative;
-
+    left: 0;
     width: 20px;
     height: 16px;
     background-repeat: no-repeat;
@@ -148,7 +149,7 @@ span{
 .arrow_right {
     display: inline-block;
     position: relative;
-
+    left: 0;
     width: 20px;
     height: 16px;
     background-repeat: no-repeat;
