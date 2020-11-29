@@ -1,5 +1,6 @@
 import React from 'react';
 import '../css/index.css';
+import Tracks from "./Tracks";
 
 const TrackScheduler = ()=>{
     return(
@@ -41,36 +42,7 @@ const TrackScheduler = ()=>{
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Track I</td>
-                        <td colSpan="27">
-                            <div className="track_wraper">
-                                <div className="leftArrow"> </div>
-                                <div className="track_body">
-                                    <div className="in_info">02:12 - 03:14 ( 2ч 22мин )</div>
-                                </div>
-                                <div className="rightArrow"> </div>
-                                <div className="out_info">02:12 - 03:14 ( 2ч 22мин )</div>
-                            </div>
-
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Track II</td>
-                        <td colSpan="27">
-                            <div className="track_wraper">
-                                <div className="leftArrow"> </div>
-                                <div className="track_body">
-                                    <div className="in_info">02:12 - 03:14 ( 2ч 22мин )</div>
-                                </div>
-                                <div className="rightArrow"> </div>
-                                <div className="out_info">02:12 - 03:14 ( 2ч 22мин )</div>
-                            </div>
-
-                        </td>
-                    </tr>
-
+                        <Tracks />
                     </tbody>
                 </table>
             </section>

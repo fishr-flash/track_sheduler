@@ -67,7 +67,6 @@ th {
 
 td {
     text-align: center;
-
 }
 
 tr:nth-child(even) td {
@@ -85,14 +84,17 @@ caption {
     color: rgba(92,92,92,1.00);
 }
 
-th:first-child {
-    width: 150px;
-    font-size: .5rem;
+th:first-child, td:first-child {
+    font-size: .7rem;
     font-weight: 600;
+    overflow: hidden;
+    max-width: 150px;
+    width: 150px;
 }
 th:nth-child(2),
 th:nth-child(28){
     width: 20px;
+    min-width: 20px;
     background-color: rgba(114,114,114,1.00);
 }
 
@@ -100,7 +102,7 @@ span{
     font-size: .5rem;
     font-weight: 600;
 }
-.track_wraper {
+.shell_track_line {
     width: 100%;
     height: 1rem;
     display: inline-block;
@@ -109,7 +111,7 @@ span{
 
 }
 
-.track_body {
+.track_line {
     width: 200px;
     height: 1rem;
     margin-top: .05rem;
@@ -123,7 +125,7 @@ span{
 }
 
 
-.leftArrow {
+.arrow_left {
     display: inline-block;
     position: relative;
     left: 2px;
@@ -136,7 +138,7 @@ span{
     z-index: 3;
 }
 
-.rightArrow {
+.arrow_right {
     display: inline-block;
     position: relative;
     left: -3px;
@@ -156,10 +158,12 @@ span{
     font-weight: bold;
     font-size: .7rem;
     margin-top: .05rem;
+
 }
 .out_info {
     float: right;
     font-size: 1.1rem;
     font-weight: bold;
     color: rgba(215,215,215,1.00);
+    position: relative;
 }
