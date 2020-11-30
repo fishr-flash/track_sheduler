@@ -1,26 +1,18 @@
 import React from 'react';
-import {msToPixels, msToTime} from "./utils";
 import {connect} from "react-redux";
-import {ON_CHANGE_FILES} from "./consts";
+import {ON_CHANGE_TRACK} from "./consts";
 
 const TrackLine = ( props )=>{
-  const { start_ms
-            , end_ms
-            , id } = props;
+  const { line_left
+            , line_width
+            , sign_time
+            } = props.track;
 
 
-
-
-    const lineLeft = msToPixels( start_ms );
-    const lineWidth = msToPixels( end_ms - start_ms );
+    const {onChangeTrack, id } = props;
 
     const styleLeft = 10;
     const minimumLength = 10;
-
-    const startTime = msToTime( start_ms );
-    const endTime = msToTime( end_ms );
-    const durationTime = msToTime( end_ms - start_ms );
-
 
     const onMouseDownArrow = ( e )=>{
         const arrow = e.target;
@@ -49,11 +41,15 @@ const TrackLine = ( props )=>{
                 arrow.style.left = nowLeft + 'px';
 
 
+                const nowWidth = ( ( rightEdge - nowLeft ) + styleLeft );
                 trackLine.style.left =  nowLeft + 'px';
-                trackLine.style.width = ( ( rightEdge - nowLeft ) + styleLeft ) + 'px';
+                trackLine.style.width = nowWidth + 'px';
                 rightArrow.style.left = ( nowLeft ) + 'px';
 
 
+                onChangeTrack( { id
+                                , left: nowLeft
+                                , width: nowWidth });
             } else{
 
                 let nowWidth = e.clientX - trackLineRect.left - shiftX;
@@ -62,7 +58,17 @@ const TrackLine = ( props )=>{
                 else if( nowWidth > maxWidth ) nowWidth = maxWidth;
                 trackLine.style.width = nowWidth + 'px';
 
+                const left = trackLine.style.left;
+                const nowLeft = Number( left.slice( -left.length, left.length - 2 ) );
+
+                onChangeTrack( {
+                    id
+                    , left: nowLeft
+                    , width: nowWidth }   );
+
             }
+
+
 
 
         };
@@ -111,6 +117,13 @@ const TrackLine = ( props )=>{
             rightArrow.style.left = diff + 'px';
 
 
+            const width = track.style.width;
+            const nowWidth = Number( width.slice( -width.length, width.length - 2 ) );
+
+            onChangeTrack( {
+                id
+                , left: diff
+                , width: nowWidth } );
         };
 
         document.onmouseup = ( )=>{
@@ -128,19 +141,18 @@ const TrackLine = ( props )=>{
 
       <div className="shell_track_line">
           <div className="arrow_left"
-               style={{ left: lineLeft }}
+               style={{ left: line_left }}
                onMouseDown={ onMouseDownArrow }
           > </div>
           <div className="track_line"
-               style={{ left: lineLeft, width: lineWidth}}
+               style={{ left: line_left, width: line_width}}
                onMouseDown={ onMouseDownTrack } >
               <div className="in_info">
-                  {`${ startTime.hours}:${ startTime.minutes}`} - {`${ endTime.hours}:${ endTime.minutes} 
-                  ( ${ durationTime.hours}ч ${ durationTime.minutes }мин)`}
+                  { sign_time }
               </div>
           </div>
           <div className="arrow_right"
-               style={{ left: lineLeft }}
+               style={{ left: line_left }}
                onMouseDown={ onMouseDownArrow }
           > </div>
       </div>
@@ -152,8 +164,8 @@ const TrackLine = ( props )=>{
 export default connect(
     null
     ,dispatch => ({
-        onChangeFiles: ( v ) => {
-            dispatch( {type: ON_CHANGE_FILES, value: v })
+        onChangeTrack: ( v ) => {
+            dispatch( {type: ON_CHANGE_TRACK, value: v })
         }
     })
 )( TrackLine );

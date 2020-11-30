@@ -3,17 +3,19 @@ import '../css/index.css';
 import Tracks from "./Tracks";
 import OutInfoLayer from "./OutInfoLayer";
 import TrackUploader from "./TrackUploader";
-import { ONE_HOUR  } from "./consts";
+//import { ONE_HOUR  } from "./consts";
 
 const TrackScheduler = ()=>{
 
+
+    /// Работает неверно, не учитывает отступы
     const oneHourTh = useRef( null );
-    useEffect(() => {
+    /*useEffect(() => {
         if( oneHourTh.current ){
             // eslint-disable-next-line
             ONE_HOUR.pixelSize  = oneHourTh.current.getBoundingClientRect().width;
         }
-    });
+    });*/
 
     return(
         <main role="main">

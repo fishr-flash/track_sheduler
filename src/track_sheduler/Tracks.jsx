@@ -10,9 +10,7 @@ const Tracks = ( { tracks })=> {
             <td title={ v.name } >{ v.name }</td>
             <td colSpan="27">
                 <TrackLine
-                    id={ i }
-                    start_ms={ v.start_ms }
-                    end_ms={v.end_ms } />
+                    track={ v } id={ i } />
 
             </td>
         </tr>

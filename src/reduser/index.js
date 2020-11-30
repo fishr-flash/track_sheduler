@@ -1,5 +1,7 @@
 import servantFileUpload from "./servantFileUpload";
-import {ACTION_INIT, ON_CHANGE_FILES } from "../track_sheduler/consts";
+import {ACTION_INIT, ON_CHANGE_FILES, ON_CHANGE_TRACK} from "../track_sheduler/consts";
+import servantInit from "./servantInit";
+import servantOnChangeTrack from "./servantOnChangeTrack";
 
 export const store = {
     tracks:[
@@ -37,10 +39,17 @@ export default function reducer ( state = store, action ) {
 
     switch ( action.type ) {
 
+        /// init здесь вместо какого нибудь промиса, откуда будут получены
+        /// начальные данные о треках
         case ACTION_INIT:
+            state =servantInit( state )
             break;
         case ON_CHANGE_FILES:
             state = servantFileUpload( state, action );
+            break;
+
+        case ON_CHANGE_TRACK:
+            state = servantOnChangeTrack( state, action );
             break;
 
         default: throw new Error( 'Received unknown action type!');
@@ -48,15 +57,6 @@ export default function reducer ( state = store, action ) {
     }
 
 
-    /////////////////////////////CONSOLE/////////////////////////////////////
-        ///TODO: Console log in the code "INDEX_JS" line 43
-        if( process && process.env.NODE_ENV === 'development' ){
-            console.group( 'Console log in the code "INDEX_JS" line 43' );
-            console.info( 'state: ', state );
-            console.info( 'this: ', this );
-            //console.table( this );
-            console.groupEnd();
-        }
-    /////////////////////////////END CONSOLE/////////////////////////////////
+
     return state;
 }

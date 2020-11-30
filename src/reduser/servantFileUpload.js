@@ -1,3 +1,4 @@
+import {updatePropertyOfTracks} from "../track_sheduler/utils";
 
 const servantFileUpload = ( state, action )=>{
 
@@ -20,7 +21,7 @@ const servantFileUpload = ( state, action )=>{
 
     return{
             ...state
-            , tracks
+            , tracks: updatePropertyOfTracks( tracks )
     };
 };
 
