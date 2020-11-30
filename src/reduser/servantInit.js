@@ -7,11 +7,15 @@ const servantInit = (state )=>{
         tracks
     } = state;
 
+
+
     tracks = updatePropertyOfTracks( tracks );
+
+
 
     return{
         ...state
-        , tracks
+        , tracks: [...tracks ]
     };
 };
 

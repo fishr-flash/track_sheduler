@@ -1,5 +1,5 @@
 import servantFileUpload from "./servantFileUpload";
-import {ACTION_INIT, ON_CHANGE_FILES, ON_CHANGE_TRACK} from "../track_sheduler/consts";
+import {ACTION_INIT, ON_CHANGE_FILES, ON_CHANGE_TRACK, ON_CHANGE_WINDOW_SIZE} from "../track_sheduler/consts";
 import servantInit from "./servantInit";
 import servantOnChangeTrack from "./servantOnChangeTrack";
 
@@ -26,9 +26,13 @@ export const store = {
             , start_ms: 150000
             , end_ms: 3600000
         }
+
+
     ]
 
 };
+
+
 ///TODO: Дописать удаление трека
 
 export default function reducer ( state = store, action ) {
@@ -38,7 +42,8 @@ export default function reducer ( state = store, action ) {
         /// init здесь вместо какого нибудь промиса, откуда будут получены
         /// начальные данные о треках
         case ACTION_INIT:
-            state =servantInit( state )
+        case ON_CHANGE_WINDOW_SIZE:
+            state =servantInit( state );
             break;
         case ON_CHANGE_FILES:
             state = servantFileUpload( state, action );
@@ -48,7 +53,10 @@ export default function reducer ( state = store, action ) {
             state = servantOnChangeTrack( state, action );
             break;
 
-        default: throw new Error( 'Received unknown action type!');
+        default:
+            state =servantInit( state )
+            // first action type of build version is unknown
+            //throw new Error( 'Received unknown action type! action.type: ' + action.type );
 
     }
 

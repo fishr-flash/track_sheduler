@@ -3,19 +3,28 @@ import '../css/index.css';
 import Tracks from "./Tracks";
 import OutInfoLayer from "./OutInfoLayer";
 import TrackUploader from "./TrackUploader";
-//import { ONE_HOUR  } from "./consts";
+import {ON_CHANGE_TRACK, ON_CHANGE_WINDOW_SIZE, ONE_HOUR} from "./consts";
+import {connect} from "react-redux";
 
-const TrackScheduler = ()=>{
+const TrackScheduler = ({
+                            tracks
+                            , onChangeWindowSize
+                        })=>{
 
 
-    /// Работает неверно, не учитывает отступы
+
     const oneHourTh = useRef( null );
-    /*useEffect(() => {
+    useEffect(() => {
         if( oneHourTh.current ){
             // eslint-disable-next-line
             ONE_HOUR.pixelSize  = oneHourTh.current.getBoundingClientRect().width;
+            document.defaultView.onresize = ( e )=>{
+                ONE_HOUR.pixelSize  = oneHourTh.current.getBoundingClientRect().width;
+                onChangeWindowSize();
+
+            };
         }
-    });*/
+    });
 
     return(
         <main role="main">
@@ -51,7 +60,6 @@ const TrackScheduler = ()=>{
                         <th><span>21</span>:00</th>
                         <th><span>22</span>:00</th>
                         <th><span>23</span>:00</th>
-                        <th><span>00</span>:00</th>
                         <th> </th>
                     </tr>
                     </thead>
@@ -59,10 +67,21 @@ const TrackScheduler = ()=>{
                         <Tracks />
                     </tbody>
                 </table>
-                <OutInfoLayer/>
+
             </section>
+           {/* <OutInfoLayer tracks={ tracks }/>*/}
         </main>
     )
 };
 
-export default TrackScheduler;
+export default connect(
+    state => {
+        return ({
+            tracks: state.tracks
+        });
+    },dispatch => ({
+        onChangeWindowSize: ( v ) => {
+            dispatch( {type: ON_CHANGE_WINDOW_SIZE, value: 0 })
+        }
+    })
+)( TrackScheduler );

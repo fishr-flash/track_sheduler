@@ -11,7 +11,6 @@ const Tracks = ( { tracks })=> {
             <td colSpan="27">
                 <TrackLine
                     track={ v } id={ i } />
-
             </td>
         </tr>
 

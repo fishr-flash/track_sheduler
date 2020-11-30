@@ -47,7 +47,7 @@ table {
     border-collapse: collapse;
     border: 2px solid rgb(200,200,200);
     letter-spacing: 1px;
-    font-size: 0.8rem;
+    font-size: 10px;
     white-space: nowrap;
 }
 
@@ -55,6 +55,8 @@ td, th {
     border: 1px solid rgb(190,190,190);
     padding: 2px 3px;
     vertical-align: middle;
+    width: 30px;
+    max-width: 30px;
 }
 
 
@@ -62,7 +64,7 @@ td, th {
 th {
     background-color: rgba(70,70,70,1.00);
     color: white;
-    font-size: .3rem;
+    font-size: 7px;
 }
 
 td {
@@ -85,7 +87,7 @@ caption {
 }
 
 th:first-child, td:first-child {
-    font-size: .7rem;
+    font-size: 10px;
     font-weight: 600;
     overflow: hidden;
     max-width: 150px;
@@ -94,11 +96,13 @@ th:first-child, td:first-child {
 
 td:first-child {
     text-align: left;
-    padding-left: 1rem;
+    padding-left: 12px;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 th:nth-child(2),
-th:nth-child(28){
+th:nth-child(27){
     width: 19px;
     min-width: 19px;
     background-color: rgba(114,114,114,1.00);
@@ -106,24 +110,25 @@ th:nth-child(28){
 }
 
 span{
-    font-size: .5rem;
+    font-size: 10px;
     font-weight: 600;
 }
 .shell_track_line {
     width: 100%;
-    height: 1rem;
+    height: 16px;
     display: inline-block;
-    margin-top: .2rem;
+    margin-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
 
 
 }
 
 .track_line {
     width: 200px;
-    height: 1rem;
-    margin-top: .05rem;
+    height: 16px;
     background-color: red;
-    border-radius: .5rem;
+    border-radius: 8px;
     float: left;
     cursor: pointer;
     position: relative;
@@ -164,13 +169,13 @@ span{
     font-family: sans-serif;
     color: white;
     font-weight: bold;
-    font-size: .7rem;
-    margin-top: .05rem;
+    font-size: 10px;
+    margin-top: 2px;
 
 }
 .out_info {
-    float: right;
-    font-size: 1.1rem;
+    float: left;
+    font-size: 18px;
     font-weight: bold;
     color: rgba(215,215,215,1.00);
     position: relative;

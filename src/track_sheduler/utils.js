@@ -77,5 +77,5 @@ export const updateTimeTrack = ( trackData )=>{
     const durationTime = msToTime( trackData.end_ms - trackData.start_ms );
 
     return `${ startTime.hours}:${ startTime.minutes} - ${ endTime.hours}:${ endTime.minutes}`+
-        `( ${ durationTime.hours}ч ${ durationTime.minutes }мин)`;
+        `( ${ durationTime.hours}ч ${ durationTime.minutes }мин )`;
 };
