@@ -1,30 +1,31 @@
-import React, {useRef, useEffect } from 'react';
+import React, {useEffect, useRef} from 'react';
 import '../css/index.css';
 import Tracks from "./Tracks";
-import OutInfoLayer from "./OutInfoLayer";
 import TrackUploader from "./TrackUploader";
-import {ON_CHANGE_TRACK, ON_CHANGE_WINDOW_SIZE, ONE_HOUR} from "./consts";
+import {ON_CHANGE_WINDOW_SIZE} from "./consts";
 import {connect} from "react-redux";
 
 const TrackScheduler = ({
-                            tracks
-                            , onChangeWindowSize
+                            onChangeWindowSize
+                            , sizeCellOfOneHour
                         })=>{
 
 
 
     const oneHourTh = useRef( null );
     useEffect(() => {
+        
         if( oneHourTh.current ){
             // eslint-disable-next-line
-            ONE_HOUR.pixelSize  = oneHourTh.current.getBoundingClientRect().width;
-            document.defaultView.onresize = ( e )=>{
-                ONE_HOUR.pixelSize  = oneHourTh.current.getBoundingClientRect().width;
-                onChangeWindowSize();
+            onChangeWindowSize( oneHourTh.current.getBoundingClientRect().width );
+
+            document.defaultView.onresize = ( )=>{
+                onChangeWindowSize( oneHourTh.current.getBoundingClientRect().width );
 
             };
         }
-    });
+    }, [ sizeCellOfOneHour
+            , onChangeWindowSize ]);
 
     return(
         <main role="main">
@@ -78,10 +79,11 @@ export default connect(
     state => {
         return ({
             tracks: state.tracks
+            , sizeCellOfOneHour: state.sizeCellOfOneHour
         });
     },dispatch => ({
         onChangeWindowSize: ( v ) => {
-            dispatch( {type: ON_CHANGE_WINDOW_SIZE, value: 0 })
+            dispatch( {type: ON_CHANGE_WINDOW_SIZE, sizeCellOfOneHour: v })
         }
     })
 )( TrackScheduler );

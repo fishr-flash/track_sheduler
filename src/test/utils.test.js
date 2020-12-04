@@ -1,4 +1,5 @@
-import {pixelsToMs, msToPixels, msToTime} from "../track_sheduler/utils";
+import {pixelsToMs, msToPixels, msToTime} from "../utils";
+import {DEFAULT_SIZE_CELL_ONE_HOUR} from "../track_sheduler/consts";
 
 describe( 'all tests', ()=>{
 
@@ -10,29 +11,29 @@ describe( 'all tests', ()=>{
 
     test( 'work msToPixels', ()=>{
        const mss = [
-           [ 3600000, 27 ]
-           , [ 5400000, 41 ]
-           , [ 5820000, 44 ]
+           [ 3600000, DEFAULT_SIZE_CELL_ONE_HOUR, 34 ]
+           , [ 5400000, DEFAULT_SIZE_CELL_ONE_HOUR, 51 ]
+           , [ 5820000, DEFAULT_SIZE_CELL_ONE_HOUR, 55 ]
        ];
 
 
        mss.forEach( ( v )=>{
-           expect( msToPixels( v[ 0 ] )).toBe( v[ 1 ] );
+           expect( msToPixels( v[ 0 ], v[ 1 ] )).toBe( v[ 2 ] );
        } );
 
     });
 
     test( 'work pixelsToMs', ()=>{
        const mss = [
-           [ 27, 3600000 ]
-           , [ 54,7200000 ]
-           , [ 40, 5340000 ]
-           , [ 95, 12720000 ]
+           [ 27, DEFAULT_SIZE_CELL_ONE_HOUR, 2880000 ]
+           , [ 54, DEFAULT_SIZE_CELL_ONE_HOUR,5760000 ]
+           , [ 40, DEFAULT_SIZE_CELL_ONE_HOUR, 4260000 ]
+           , [ 95, DEFAULT_SIZE_CELL_ONE_HOUR, 10080000 ]
        ];
 
 
        mss.forEach( ( v )=>{
-           expect( pixelsToMs( v[ 0 ] )).toStrictEqual( v[ 1 ] );
+           expect( pixelsToMs( v[ 0 ], v[ 1 ] )).toBe( v[ 2 ] );
        } );
 
     });
@@ -49,7 +50,7 @@ describe( 'all tests', ()=>{
            , [  3600000 * 8.46 , {"hours": "08", "minutes": "28"} ]
            , [  75600000 , {"hours": "21", "minutes": "00"} ]
            , [  90540000 , {"hours": "01", "minutes": "09"} ]
-           , [  86400000 , {"hours": "00", "minutes": "00"} ]
+           , [  86400000 , {"hours": "24", "minutes": "00"} ]
        ];
 
 

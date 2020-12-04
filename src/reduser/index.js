@@ -1,7 +1,12 @@
 import servantFileUpload from "./servantFileUpload";
-import {ACTION_INIT, ON_CHANGE_FILES, ON_CHANGE_TRACK, ON_CHANGE_WINDOW_SIZE} from "../track_sheduler/consts";
-import servantInit from "./servantInit";
+import {
+    DEFAULT_SIZE_CELL_ONE_HOUR,
+    ON_CHANGE_FILES,
+    ON_CHANGE_TRACK,
+    ON_CHANGE_WINDOW_SIZE
+} from "../track_sheduler/consts";
 import servantOnChangeTrack from "./servantOnChangeTrack";
+import servantResize from "./servantResize";
 
 export const store = {
     tracks:[
@@ -29,6 +34,7 @@ export const store = {
 
 
     ]
+    , sizeCellOfOneHour: DEFAULT_SIZE_CELL_ONE_HOUR
 
 };
 
@@ -39,12 +45,10 @@ export default function reducer ( state = store, action ) {
 
     switch ( action.type ) {
 
-        /// init здесь вместо какого нибудь промиса, откуда будут получены
-        /// начальные данные о треках
-        case ACTION_INIT:
         case ON_CHANGE_WINDOW_SIZE:
-            state =servantInit( state );
+            state =servantResize( state, action );
             break;
+
         case ON_CHANGE_FILES:
             state = servantFileUpload( state, action );
             break;
@@ -54,7 +58,7 @@ export default function reducer ( state = store, action ) {
             break;
 
         default:
-            state =servantInit( state )
+
             // first action type of build version is unknown
             //throw new Error( 'Received unknown action type! action.type: ' + action.type );
 

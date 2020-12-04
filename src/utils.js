@@ -1,6 +1,7 @@
-import {IS_24_HOURS_OF_MS, ONE_HOUR} from "./consts";
+import {IS_24_HOURS_OF_MS} from "./track_sheduler/consts";
 
-export const msToPixels = (ms )=>{
+export const msToPixels = (ms, sizeCellOfOneHour )=>{
+
     const dt = new Date( 0 );
     const zeroDate = new Date( 0 );
     dt.setMilliseconds( dt.getMilliseconds() + ms );
@@ -10,12 +11,12 @@ export const msToPixels = (ms )=>{
     hours += minutes / 60;
     if( ms >= IS_24_HOURS_OF_MS ) hours = 24;
 
-    return Math.ceil( hours * ONE_HOUR.pixelSize );
+    return Math.ceil( hours * sizeCellOfOneHour );
 };
 
-export const pixelsToMs = (px )=>{
+export const pixelsToMs = (px, sizeCellOfOneHour )=>{
 
-    let hours = Number( Number( px / ONE_HOUR.pixelSize ).toFixed( 2 ) );
+    let hours = Number( Number( px / sizeCellOfOneHour ).toFixed( 2 ) );
 
     let minutes = Math.ceil( ( hours%1 ) * 60 );
     hours = Math.floor( hours );
@@ -54,12 +55,12 @@ export const msToTime = ( ms )=>{
     };
 };
 
-export const updatePropertyOfTracks = (tracks )=>{
+export const updatePropertyOfTracks = (tracks, sizeCellOfOneHour )=>{
 
     return tracks.map( ( v )=>{
         return {...v
-            ,line_left: msToPixels( v.start_ms )
-            ,line_width: msToPixels( v.end_ms - v.start_ms )
+            ,line_left: msToPixels( v.start_ms, sizeCellOfOneHour )
+            ,line_width: msToPixels( v.end_ms - v.start_ms, sizeCellOfOneHour )
             , sign_time: updateTimeTrack( v )
 
         };

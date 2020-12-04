@@ -1,16 +1,16 @@
-import {pixelsToMs, updatePropertyOfTracks, updateTimeTrack} from "../track_sheduler/utils";
+import {pixelsToMs, updateTimeTrack} from "../utils";
 
 const servantOnChangeTrack = (state, action )=>{
 
 
-    let { tracks } = state;
+    let { tracks, sizeCellOfOneHour } = state;
 
 
     const changedTrack = action.value;
     tracks[ changedTrack.id ]= {
         ...tracks[ changedTrack.id ]
-        , start_ms: pixelsToMs( changedTrack.left )
-        , end_ms: pixelsToMs( changedTrack.left + changedTrack.width )
+        , start_ms: pixelsToMs( changedTrack.left, sizeCellOfOneHour )
+        , end_ms: pixelsToMs( changedTrack.left + changedTrack.width, sizeCellOfOneHour )
     };
 
     tracks[ changedTrack.id ].sign_time = updateTimeTrack(  tracks[ changedTrack.id ]);
