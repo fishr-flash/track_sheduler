@@ -1,58 +1,38 @@
 import {IS_24_HOURS_OF_MS} from "./track_sheduler/consts";
 
+
+const oneHourInMs = 1000 * 60 * 60;
+
 export const msToPixels = (ms, sizeCellOfOneHour )=>{
-
-    const dt = new Date( 0 );
-    const zeroDate = new Date( 0 );
-    dt.setMilliseconds( dt.getMilliseconds() + ms );
-    let hours = ( dt.getHours() - zeroDate.getHours() );
-    let minutes = ( dt.getMinutes() - zeroDate.getMinutes() );
-    if( ms >= IS_24_HOURS_OF_MS )minutes = 0;
-    hours += minutes / 60;
-    if( ms >= IS_24_HOURS_OF_MS ) hours = 24;
-
-    return Math.ceil( hours * sizeCellOfOneHour );
+    if( ms < IS_24_HOURS_OF_MS ){
+        let hr = ms / oneHourInMs;
+        return Math.round( hr * sizeCellOfOneHour );
+    } else {
+        return Math.round(24 /* max time on hours */ * sizeCellOfOneHour );
+    }
 };
 
-export const pixelsToMs = (px, sizeCellOfOneHour )=>{
-
-    let hours = Number( Number( px / sizeCellOfOneHour ).toFixed( 2 ) );
-
-    let minutes = Math.ceil( ( hours%1 ) * 60 );
-    hours = Math.floor( hours );
-    const dt = new Date( 0 );
-    dt.setHours( dt.getHours() + hours, dt.getMinutes() + minutes, 0, 0 );
-
-    return ( dt.getTime() - new Date( 0 ).getTime() );
-};
+export const pixelsToMs = (px, sizeCellOfOneHour )=> Math.round( ( px / sizeCellOfOneHour) * oneHourInMs );
 
 export const msToTime = ( ms )=>{
 
-    const dt = new Date(0 );
+    let hr = Math.floor( ms / oneHourInMs );
+    let mnt = Math.round( ( ms%oneHourInMs ) / ( 1000 * 60 ) );
 
-    dt.setHours( 0 );
-    dt.setMilliseconds( ms );
+    if( mnt === 60 ) {
+        hr += 1;
+        mnt = 0;
+    }
 
-    const zeroDate = new Date( 0 );
-    zeroDate.setHours( 0 );
-    let hours = ( dt.getHours() - zeroDate.getHours() ).toString();
-
-
-    if( hours.length === 1 ) hours = '0' + hours;
-
-    let minutes = ( dt.getMinutes() - zeroDate.getMinutes() );
-    if( dt.getSeconds() - zeroDate.getSeconds() ) minutes += 1;
-    if( minutes.toString().length === 1 ) minutes = '0' + minutes;
-
-    if( hours === '00' && ms >=  IS_24_HOURS_OF_MS )
-    {
-        hours = '24';
-        minutes = '00';
+    if( hr >= 24 || ( hr === 23 && mnt === 60 ) ){
+        hr = 24;
+        mnt = 0;
     }
     return{
-      hours
-        , minutes: minutes.toString()
+        hours: hr
+        , minutes: mnt
     };
+
 };
 
 export const updatePropertyOfTracks = (tracks, sizeCellOfOneHour )=>{
@@ -75,8 +55,25 @@ export const updateTimeTrack = ( trackData )=>{
 
     const startTime = msToTime( trackData.start_ms );
     const endTime = msToTime( trackData.end_ms );
-    const durationTime = msToTime( trackData.end_ms - trackData.start_ms );
 
-    return `${ startTime.hours}:${ startTime.minutes} - ${ endTime.hours}:${ endTime.minutes}`+
-        `( ${ durationTime.hours}ч ${ durationTime.minutes }мин )`;
+    const durationMinutes = ( endTime.hours * 60 + endTime.minutes ) - ( startTime.hours * 60 + startTime.minutes );
+    const durationTime = {
+        hours: Math.floor( durationMinutes / 60 )
+        , minutes:  durationMinutes%60
+    };
+
+
+    const ifOneThenTwo = ( nm )=>{
+        if( nm >= 10 ) return nm.toString();
+        else return  '0' + nm;
+    };
+    const sh = ifOneThenTwo( startTime.hours );
+    const sm = ifOneThenTwo( startTime.minutes );
+    const eh = ifOneThenTwo( endTime.hours );
+    const em = ifOneThenTwo( endTime.minutes );
+    const dh = ifOneThenTwo( durationTime.hours );
+    const dm = ifOneThenTwo( durationTime.minutes );
+
+    return `${ sh }:${ sm } - ${ eh }:${ em } ( ${ dh }ч ${ dm }мин )`;
+
 };

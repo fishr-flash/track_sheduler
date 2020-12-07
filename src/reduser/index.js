@@ -26,7 +26,7 @@ export const store = {
             , start_ms: 11880000
             , end_ms: 3600000 * 15.38
         }
-        , {
+        ,{
             name: 'IITrack IITrack IITrack II'
             , start_ms: 150000
             , end_ms: 3600000

@@ -1,24 +1,78 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import {connect} from "react-redux";
-import {ON_CHANGE_TRACK} from "./consts";
+import {ON_CHANGE_TRACK, ON_CHANGE_WINDOW_SIZE} from "./consts";
 
 const TrackLine = ( props )=>{
-  const { line_left
+
+  const {onChangeTrack
+        , id
+        , onChangeWindowSize
+        , track:{
+            line_left
             , line_width
             , sign_time
-            } = props.track;
-
-
-    const {onChangeTrack, id } = props;
+        }} = props;
 
     const styleLeft = 10;
     const minimumLength = 10;
+
+    const shellTrackLine = useRef( null );
+    const arrowLeft = useRef( null );
+    const [ myId, setMyId ] = useState( 0 );
+    const [ trackLeft, setTrackLeft ] = useState( 0 );
+    const [ trackWidth, setTrackWidth ] = useState( 0 );
+    const [ didMount, setDIdMount ] = useState( true  );
+
+
+
+
+    useEffect(()=>{
+       if( id === 0 && didMount && shellTrackLine.current ){
+
+           const updateWindowSize = ()=>{
+               const widthTrackLine = shellTrackLine.current.getBoundingClientRect().width;
+               const widthArrowLeft = arrowLeft.current.getBoundingClientRect().width;
+
+               onChangeWindowSize(  widthTrackLine - ( widthArrowLeft * 2 ));
+           };
+
+
+
+           updateWindowSize();
+
+           document.defaultView.onresize = ( )=>{
+               updateWindowSize();
+
+           };
+       }
+
+       if( !didMount && trackWidth ) {
+
+           onChangeTrack( { id: myId
+               , left: trackLeft
+               , width: trackWidth });
+
+       }
+
+        setDIdMount( false );
+
+
+    }, [
+        onChangeWindowSize
+        , onChangeTrack
+        , shellTrackLine
+        , arrowLeft
+        , myId
+        , trackLeft
+        , trackWidth
+        , didMount
+        , id
+    ]);
 
     const onMouseDownArrow = ( e )=>{
         const arrow = e.target;
         arrow.onmousedown = null;
         arrow.ondragstart = ()=> false;
-
 
         const rectArrow = arrow.getBoundingClientRect();
         const shellTrackLine = arrow.parentNode;
@@ -34,43 +88,40 @@ const TrackLine = ( props )=>{
 
         document.onmousemove = ( e )=>{
 
+            let nowLeft;
+            let nowWidth;
+
             if( arrow.className === 'arrow_left' ){
-                let nowLeft = ( e.clientX - shellTrackLineRect.left ) - shiftX;
+                nowLeft = ( e.clientX - shellTrackLineRect.left ) - shiftX;
                 if( nowLeft < 0 ) nowLeft = 0;
                 else if ( nowLeft > rightEdge ) nowLeft = rightEdge;
                 arrow.style.left = nowLeft + 'px';
 
 
-                const nowWidth = ( ( rightEdge - nowLeft ) + styleLeft );
+                nowWidth = ( ( rightEdge - nowLeft ) + styleLeft );
                 trackLine.style.left =  nowLeft + 'px';
                 trackLine.style.width = nowWidth + 'px';
                 rightArrow.style.left = ( nowLeft ) + 'px';
 
 
-                onChangeTrack( { id
-                                , left: nowLeft
-                                , width: nowWidth });
             } else{
 
-                let nowWidth = e.clientX - trackLineRect.left - shiftX;
+                nowWidth = e.clientX - trackLineRect.left - shiftX;
 
                 if( nowWidth < minimumLength ) nowWidth = minimumLength;
                 else if( nowWidth > maxWidth ) nowWidth = maxWidth;
                 trackLine.style.width = nowWidth + 'px';
 
                 const left = trackLine.style.left;
-                const nowLeft = Number( left.slice( -left.length, left.length - 2 ) );
-
-                onChangeTrack( {
-                    id
-                    , left: nowLeft
-                    , width: nowWidth }   );
+                nowLeft = Number( left.slice( -left.length, left.length - 2 ) );
 
             }
 
 
-
-
+            
+            setMyId( id );
+            setTrackLeft( nowLeft );
+            setTrackWidth( nowWidth );
         };
 
         document.onmouseup = ()=>{
@@ -120,10 +171,10 @@ const TrackLine = ( props )=>{
             const width = track.style.width;
             const nowWidth = Number( width.slice( -width.length, width.length - 2 ) );
 
-            onChangeTrack( {
-                id
-                , left: diff
-                , width: nowWidth } );
+            setMyId( id );
+            setTrackLeft( diff );
+            setTrackWidth( nowWidth );
+
         };
 
         document.onmouseup = ( )=>{
@@ -139,9 +190,10 @@ const TrackLine = ( props )=>{
 
     return(
 
-      <div className="shell_track_line">
+      <div className="shell_track_line" ref={ shellTrackLine }>
           <div className="arrow_left"
                style={{ left: line_left }}
+               ref={ arrowLeft }
                onMouseDown={ onMouseDownArrow }
           > </div>
           <div className="track_line"
@@ -166,6 +218,9 @@ export default connect(
     ,dispatch => ({
         onChangeTrack: ( v ) => {
             dispatch( {type: ON_CHANGE_TRACK, value: v })
+        }
+        , onChangeWindowSize: ( v )=>{
+            dispatch( {type: ON_CHANGE_WINDOW_SIZE, widthTrackLine: v })
         }
     })
 )( TrackLine );

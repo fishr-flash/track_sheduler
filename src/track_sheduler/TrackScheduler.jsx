@@ -5,27 +5,7 @@ import TrackUploader from "./TrackUploader";
 import {ON_CHANGE_WINDOW_SIZE} from "./consts";
 import {connect} from "react-redux";
 
-const TrackScheduler = ({
-                            onChangeWindowSize
-                            , sizeCellOfOneHour
-                        })=>{
-
-
-
-    const oneHourTh = useRef( null );
-    useEffect(() => {
-        
-        if( oneHourTh.current ){
-            // eslint-disable-next-line
-            onChangeWindowSize( oneHourTh.current.getBoundingClientRect().width );
-
-            document.defaultView.onresize = ( )=>{
-                onChangeWindowSize( oneHourTh.current.getBoundingClientRect().width );
-
-            };
-        }
-    }, [ sizeCellOfOneHour
-            , onChangeWindowSize ]);
+const TrackScheduler = ()=>{
 
     return(
         <main role="main">
@@ -37,7 +17,7 @@ const TrackScheduler = ({
                     <tr>
                         <th>Название</th>
                         <th> </th>
-                        <th ref={ oneHourTh }><span>00</span>:00</th>
+                        <th><span>00</span>:00</th>
                         <th><span>01</span>:00</th>
                         <th><span>02</span>:00</th>
                         <th><span>03</span>:00</th>
@@ -75,15 +55,4 @@ const TrackScheduler = ({
     )
 };
 
-export default connect(
-    state => {
-        return ({
-            tracks: state.tracks
-            , sizeCellOfOneHour: state.sizeCellOfOneHour
-        });
-    },dispatch => ({
-        onChangeWindowSize: ( v ) => {
-            dispatch( {type: ON_CHANGE_WINDOW_SIZE, sizeCellOfOneHour: v })
-        }
-    })
-)( TrackScheduler );
+export default TrackScheduler;

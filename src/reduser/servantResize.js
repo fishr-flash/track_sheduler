@@ -7,14 +7,12 @@ const servantResize = (state, action )=>{
         tracks
     } = state;
 
-    let {
-        sizeCellOfOneHour
+    const {
+        widthTrackLine
     } = action;
 
-
+    const sizeCellOfOneHour = widthTrackLine / 24;
     tracks = updatePropertyOfTracks( tracks, sizeCellOfOneHour );
-
-
 
     return{
         ...state

@@ -5,15 +5,21 @@ const servantOnChangeTrack = (state, action )=>{
 
     let { tracks, sizeCellOfOneHour } = state;
 
+    const {
+        id
+        , left
+        , width
+    } = action.value;
 
-    const changedTrack = action.value;
-    tracks[ changedTrack.id ]= {
-        ...tracks[ changedTrack.id ]
-        , start_ms: pixelsToMs( changedTrack.left, sizeCellOfOneHour )
-        , end_ms: pixelsToMs( changedTrack.left + changedTrack.width, sizeCellOfOneHour )
+    tracks[ id ]= {
+        ...tracks[ id ]
+        , start_ms: pixelsToMs( left, sizeCellOfOneHour )
+        , end_ms: pixelsToMs( left + width, sizeCellOfOneHour )
+        , line_left: left
+        , line_width: width
     };
 
-    tracks[ changedTrack.id ].sign_time = updateTimeTrack(  tracks[ changedTrack.id ]);
+    tracks[ id ].sign_time = updateTimeTrack(  tracks[ id ]);
 
     return{
         ...state
