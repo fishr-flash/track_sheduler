@@ -1,139 +1,182 @@
 import reducer from '../reduser';
 
-describe( 'reducers test', ()=>{
+describe('reducers test', () => {
 
-
-    test('reducer servantResize', () => {
+    test('reducers servantResize', () => {
         let state;
         state = reducer({
-            tracks: [{
-                name: 'Track I',
-                start_ms: 5580000,
-                end_ms: 43776000,
-                line_left: 53,
-                line_width: 361,
-                sign_time: '01:33 - 12:10 ( 10ч 37мин )'
-            }, {
+            tracks: [{name: 'Track I', start_ms: 5580000, end_ms: 43776000}, {
                 name: 'Track II',
                 start_ms: 5400000,
-                end_ms: 14400000,
-                line_left: 51,
-                line_width: 85,
-                sign_time: '01:30 - 04:00 ( 02ч 30мин )'
+                end_ms: 14400000
             }, {
                 name: 'Track IITrack IITrack IITrack IITrack IITrack II',
                 start_ms: 11880000,
-                end_ms: 55368000,
-                line_left: 113,
-                line_width: 411,
-                sign_time: '03:18 - 15:23( 12ч 05мин )'
-            }, {
-                name: 'IITrack IITrack IITrack II',
-                start_ms: 150000,
-                end_ms: 3600000,
-                line_left: 2,
-                line_width: 33,
-                sign_time: '00:03 - 01:00( 00ч 58мин )'
-            }], sizeCellOfOneHour: 34
-        }, {type: 'onChangeWindowSize', sizeCellOfOneHour: 34});
+                end_ms: 55368000
+            }, {name: 'IITrack IITrack IITrack II', start_ms: 150000, end_ms: 3600000}], sizeCellOfOneHour: 34
+        }, {type: 'onChangeWindowSize', widthTrackLine: 786.6500244140625});
         expect(state).toEqual({
             tracks: [{
                 name: 'Track I',
                 start_ms: 5580000,
                 end_ms: 43776000,
-                line_left: 53,
-                line_width: 361,
-                sign_time: '01:33 - 12:10 ( 10ч 37мин )'
+                line_left: 51,
+                line_width: 348,
+                sign_time: '01:33 - 12:09 ( 10ч 36мин )'
             }, {
                 name: 'Track II',
                 start_ms: 5400000,
                 end_ms: 14400000,
-                line_left: 51,
-                line_width: 85,
+                line_left: 49,
+                line_width: 82,
                 sign_time: '01:30 - 04:00 ( 02ч 30мин )'
             }, {
                 name: 'Track IITrack IITrack IITrack IITrack IITrack II',
                 start_ms: 11880000,
                 end_ms: 55368000,
-                line_left: 112,
-                line_width: 411,
-                sign_time: '03:18 - 15:23 ( 12ч 05мин )'
+                line_left: 108,
+                line_width: 396,
+                sign_time: '03:18 - 15:22 ( 12ч 04мин )'
             }, {
                 name: 'IITrack IITrack IITrack II',
                 start_ms: 150000,
                 end_ms: 3600000,
                 line_left: 1,
-                line_width: 33,
+                line_width: 31,
                 sign_time: '00:03 - 01:00 ( 00ч 57мин )'
-            }], sizeCellOfOneHour: 34
+            }], sizeCellOfOneHour: 32.77708435058594
         });
     });
 
-
-    test('reducers servantOnChangeTrack', () =>
-    {
+    test('reducers servantOnChangeTrack resize', () => {
         let state;
         state = reducer({
             tracks: [{
                 name: 'Track I',
-                start_ms: 21060000,
-                end_ms: 43860000,
-                line_left: 53,
-                line_width: 361,
-                sign_time: '05:51 - 12:11 ( 06ч 20мин )'
+                start_ms: 2855654,
+                end_ms: 43823300,
+                line_left: 26,
+                line_width: 373,
+                sign_time: '00:48 - 12:10 ( 11ч 22мин )'
             }, {
                 name: 'Track II',
                 start_ms: 5400000,
                 end_ms: 14400000,
-                line_left: 51,
-                line_width: 85,
+                line_left: 49,
+                line_width: 82,
                 sign_time: '01:30 - 04:00 ( 02ч 30мин )'
             }, {
                 name: 'Track IITrack IITrack IITrack IITrack IITrack II',
                 start_ms: 11880000,
                 end_ms: 55368000,
-                line_left: 113,
-                line_width: 411,
-                sign_time: '03:18 - 15:23 ( 12ч 05мин )'
+                line_left: 108,
+                line_width: 396,
+                sign_time: '03:18 - 15:22 ( 12ч 04мин )'
             }, {
                 name: 'IITrack IITrack IITrack II',
                 start_ms: 150000,
                 end_ms: 3600000,
-                line_left: 2,
-                line_width: 33,
-                sign_time: '00:03 - 01:00 ( 00ч 58мин )'
-            }], sizeCellOfOneHour: 34
-        }, {type: 'onChangeTrack', value: {id: 0, left: 199, width: 215}});
+                line_left: 1,
+                line_width: 31,
+                sign_time: '00:03 - 01:00 ( 00ч 57мин )'
+            }], sizeCellOfOneHour: 32.77708435058594
+        }, {type: 'onChangeTrack', value: {id: 0, left: 26, width: 373}});
         expect(state).toEqual({
             tracks: [{
                 name: 'Track I',
-                start_ms: 21060000,
-                end_ms: 43860000,
-                line_left: 53,
-                line_width: 361,
-                sign_time: '05:51 - 12:11 ( 06ч 20мин )'
+                start_ms: 2855654,
+                end_ms: 43823300,
+                line_left: 26,
+                line_width: 373,
+                sign_time: '00:48 - 12:10 ( 11ч 22мин )'
             }, {
                 name: 'Track II',
                 start_ms: 5400000,
                 end_ms: 14400000,
-                line_left: 51,
-                line_width: 85,
+                line_left: 49,
+                line_width: 82,
                 sign_time: '01:30 - 04:00 ( 02ч 30мин )'
             }, {
                 name: 'Track IITrack IITrack IITrack IITrack IITrack II',
                 start_ms: 11880000,
                 end_ms: 55368000,
-                line_left: 113,
-                line_width: 411,
-                sign_time: '03:18 - 15:23 ( 12ч 05мин )'
+                line_left: 108,
+                line_width: 396,
+                sign_time: '03:18 - 15:22 ( 12ч 04мин )'
             }, {
                 name: 'IITrack IITrack IITrack II',
                 start_ms: 150000,
                 end_ms: 3600000,
-                line_left: 2,
-                line_width: 33,
-                sign_time: '00:03 - 01:00 ( 00ч 58мин )'
-            }], sizeCellOfOneHour: 34
+                line_left: 1,
+                line_width: 31,
+                sign_time: '00:03 - 01:00 ( 00ч 57мин )'
+            }], sizeCellOfOneHour: 32.77708435058594
+        });
+    });
+
+    test('reducers servantOnChangeTrack shift', () => {
+        let state;
+        state = reducer({
+            tracks: [{
+                name: 'Track I',
+                start_ms: 5580000,
+                end_ms: 43776000,
+                line_left: 51,
+                line_width: 348,
+                sign_time: '01:33 - 12:09 ( 10ч 36мин )'
+            }, {
+                name: 'Track II',
+                start_ms: 10763618,
+                end_ms: 19769910,
+                line_left: 98,
+                line_width: 82,
+                sign_time: '02:59 - 05:29 ( 02ч 30мин )'
+            }, {
+                name: 'Track IITrack IITrack IITrack IITrack IITrack II',
+                start_ms: 11880000,
+                end_ms: 55368000,
+                line_left: 108,
+                line_width: 396,
+                sign_time: '03:18 - 15:22 ( 12ч 04мин )'
+            }, {
+                name: 'IITrack IITrack IITrack II',
+                start_ms: 150000,
+                end_ms: 3600000,
+                line_left: 1,
+                line_width: 31,
+                sign_time: '00:03 - 01:00 ( 00ч 57мин )'
+            }], sizeCellOfOneHour: 32.77708435058594
+        }, {type: 'onChangeTrack', value: {id: 1, left: 98, width: 82}});
+        expect(state).toEqual({
+            tracks: [{
+                name: 'Track I',
+                start_ms: 5580000,
+                end_ms: 43776000,
+                line_left: 51,
+                line_width: 348,
+                sign_time: '01:33 - 12:09 ( 10ч 36мин )'
+            }, {
+                name: 'Track II',
+                start_ms: 10763618,
+                end_ms: 19769910,
+                line_left: 98,
+                line_width: 82,
+                sign_time: '02:59 - 05:29 ( 02ч 30мин )'
+            }, {
+                name: 'Track IITrack IITrack IITrack IITrack IITrack II',
+                start_ms: 11880000,
+                end_ms: 55368000,
+                line_left: 108,
+                line_width: 396,
+                sign_time: '03:18 - 15:22 ( 12ч 04мин )'
+            }, {
+                name: 'IITrack IITrack IITrack II',
+                start_ms: 150000,
+                end_ms: 3600000,
+                line_left: 1,
+                line_width: 31,
+                sign_time: '00:03 - 01:00 ( 00ч 57мин )'
+            }], sizeCellOfOneHour: 32.77708435058594
         });
     });
 
@@ -144,139 +187,88 @@ describe( 'reducers test', ()=>{
                 name: 'Track I',
                 start_ms: 5580000,
                 end_ms: 43776000,
-                line_left: 53,
-                line_width: 361,
-                sign_time: '01:33 - 12:10 ( 10ч 37мин )'
-            }, {
-                name: 'Track II',
-                start_ms: 3180000,
-                end_ms: 14400000,
                 line_left: 51,
-                line_width: 85,
-                sign_time: '00:53 - 04:00 ( 03ч 07мин )'
-            }, {
-                name: 'Track IITrack IITrack IITrack IITrack IITrack II',
-                start_ms: 11880000,
-                end_ms: 55368000,
-                line_left: 113,
-                line_width: 411,
-                sign_time: '03:18 - 15:23 ( 12ч 05мин )'
-            }, {
-                name: 'IITrack IITrack IITrack II',
-                start_ms: 150000,
-                end_ms: 3600000,
-                line_left: 2,
-                line_width: 33,
-                sign_time: '00:03 - 01:00 ( 00ч 58мин )'
-            }], sizeCellOfOneHour: 34
-        }, {type: 'onChangeFiles', value: ['29135.mp3']});
-        expect(state).toEqual({
-            tracks: [{
-                name: 'Track I',
-                start_ms: 5580000,
-                end_ms: 43776000,
-                line_left: 53,
-                line_width: 361,
-                sign_time: '01:33 - 12:10 ( 10ч 37мин )'
+                line_width: 348,
+                sign_time: '01:33 - 12:09 ( 10ч 36мин )'
             }, {
                 name: 'Track II',
-                start_ms: 3180000,
-                end_ms: 14400000,
-                line_left: 30,
-                line_width: 106,
-                sign_time: '00:53 - 04:00 ( 03ч 07мин )'
+                start_ms: 10763618,
+                end_ms: 19769910,
+                line_left: 98,
+                line_width: 82,
+                sign_time: '02:59 - 05:29 ( 02ч 30мин )'
             }, {
                 name: 'Track IITrack IITrack IITrack IITrack IITrack II',
                 start_ms: 11880000,
                 end_ms: 55368000,
-                line_left: 112,
-                line_width: 411,
-                sign_time: '03:18 - 15:23 ( 12ч 05мин )'
+                line_left: 108,
+                line_width: 396,
+                sign_time: '03:18 - 15:22 ( 12ч 04мин )'
             }, {
                 name: 'IITrack IITrack IITrack II',
                 start_ms: 150000,
                 end_ms: 3600000,
                 line_left: 1,
-                line_width: 33,
+                line_width: 31,
                 sign_time: '00:03 - 01:00 ( 00ч 57мин )'
-            }, {
-                name: '29135.mp3',
-                start_ms: 0,
-                end_ms: 3600000,
-                line_left: 0,
-                line_width: 34,
-                sign_time: '00:00 - 01:00 ( 01ч 00мин )'
-            }], sizeCellOfOneHour: 34
+            }], sizeCellOfOneHour: 32.77708435058594
+        }, {
+            type: 'onChangeFiles',
+            value: ['627c769aa6c1cc41e31c4e2be719e14e9b0710e811ad01df4bbcc80cf7f88deb.mp3', '29135.mp3', '29907.mp3']
         });
-    });
-
-
-    test('reducers servantOnChangeTrack2', () => {
-        let state;
-        state = reducer({
-            tracks: [{
-                name: 'Track I',
-                start_ms: 5580000,
-                end_ms: 43776000,
-                line_left: 57,
-                line_width: 393,
-                sign_time: '01:33 - 12:10 ( 10ч 37мин )'
-            }, {
-                name: 'Track II',
-                start_ms: 5400000,
-                end_ms: 14400000,
-                line_left: 56,
-                line_width: 93,
-                sign_time: '01:30 - 04:00 ( 02ч 30мин )'
-            }, {
-                name: 'Track IITrack IITrack IITrack IITrack IITrack II',
-                start_ms: 11880000,
-                end_ms: 55368000,
-                line_left: 122,
-                line_width: 447,
-                sign_time: '03:18 - 15:23 ( 12ч 05мин )'
-            }, {
-                name: 'IITrack IITrack IITrack II',
-                start_ms: 194595,
-                end_ms: 86691892,
-                line_left: 2,
-                line_width: 889,
-                sign_time: '00:04 - 24:00 ( 24ч 00мин )'
-            }], sizeCellOfOneHour: 37
-        }, {type: 'onChangeTrack', value: {id: 3, left: 2, width: 889}});
         expect(state).toEqual({
             tracks: [{
                 name: 'Track I',
                 start_ms: 5580000,
                 end_ms: 43776000,
-                line_left: 57,
-                line_width: 393,
-                sign_time: '01:33 - 12:10 ( 10ч 37мин )'
+                line_left: 51,
+                line_width: 348,
+                sign_time: '01:33 - 12:09 ( 10ч 36мин )'
             }, {
                 name: 'Track II',
-                start_ms: 5400000,
-                end_ms: 14400000,
-                line_left: 56,
-                line_width: 93,
-                sign_time: '01:30 - 04:00( 02ч 30мин )'
+                start_ms: 10763618,
+                end_ms: 19769910,
+                line_left: 98,
+                line_width: 82,
+                sign_time: '02:59 - 05:29 ( 02ч 30мин )'
             }, {
                 name: 'Track IITrack IITrack IITrack IITrack IITrack II',
                 start_ms: 11880000,
                 end_ms: 55368000,
-                line_left: 122,
-                line_width: 447,
-                sign_time: '03:18 - 15:23 ( 12ч 05мин )'
+                line_left: 108,
+                line_width: 396,
+                sign_time: '03:18 - 15:22 ( 12ч 04мин )'
             }, {
                 name: 'IITrack IITrack IITrack II',
-                start_ms: 194595,
-                end_ms: 86886486,
-                line_left: 2,
-                line_width: 891,
-                sign_time: '00:04 - 24:00 ( 24ч 00мин )'
-            }], sizeCellOfOneHour: 37
+                start_ms: 150000,
+                end_ms: 3600000,
+                line_left: 1,
+                line_width: 31,
+                sign_time: '00:03 - 01:00 ( 00ч 57мин )'
+            }, {
+                name: '627c769aa6c1cc41e31c4e2be719e14e9b0710e811ad01df4bbcc80cf7f88deb.mp3',
+                start_ms: 0,
+                end_ms: 3600000,
+                line_left: 0,
+                line_width: 33,
+                sign_time: '00:00 - 01:00 ( 01ч 00мин )'
+            }, {
+                name: '29135.mp3',
+                start_ms: 0,
+                end_ms: 3600000,
+                line_left: 0,
+                line_width: 33,
+                sign_time: '00:00 - 01:00 ( 01ч 00мин )'
+            }, {
+                name: '29907.mp3',
+                start_ms: 0,
+                end_ms: 3600000,
+                line_left: 0,
+                line_width: 33,
+                sign_time: '00:00 - 01:00 ( 01ч 00мин )'
+            }], sizeCellOfOneHour: 32.77708435058594
         });
     });
-
 
 
 });
