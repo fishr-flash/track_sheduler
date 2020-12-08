@@ -17,7 +17,7 @@ export const pixelsToMs = (px, sizeCellOfOneHour )=> Math.round( ( px / sizeCell
 export const msToTime = ( ms )=>{
 
     let hr = Math.floor( ms / oneHourInMs );
-    let mnt = Math.round( ( ms%oneHourInMs ) / ( 1000 * 60 ) );
+    let mnt = Math.floor( ( ms%oneHourInMs ) / ( 1000 * 60 ) );
 
     if( mnt === 60 ) {
         hr += 1;
@@ -52,11 +52,16 @@ export const updatePropertyOfTracks = (tracks, sizeCellOfOneHour )=>{
 
 export const updateTimeTrack = ( trackData )=>{
 
-
-    const startTime = msToTime( trackData.start_ms );
     const endTime = msToTime( trackData.end_ms );
+    const dTime = msToTime( trackData.end_ms - trackData.start_ms );
+    const startTimeMinutes = ( endTime.hours * 60 + endTime.minutes ) - ( dTime.hours * 60 + dTime.minutes );
+    const startTime = {
+        hours: Math.floor( startTimeMinutes / 60 )
+        , minutes: startTimeMinutes % 60
+    };
 
-    const durationMinutes = ( endTime.hours * 60 + endTime.minutes ) - ( startTime.hours * 60 + startTime.minutes );
+
+    const durationMinutes = Math.floor( ( endTime.hours * 60 + endTime.minutes ) - ( startTime.hours * 60 + startTime.minutes ) );
     const durationTime = {
         hours: Math.floor( durationMinutes / 60 )
         , minutes:  durationMinutes%60

@@ -1,9 +1,7 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 import '../css/index.css';
 import Tracks from "./Tracks";
 import TrackUploader from "./TrackUploader";
-import {ON_CHANGE_WINDOW_SIZE} from "./consts";
-import {connect} from "react-redux";
 
 const TrackScheduler = ()=>{
 
