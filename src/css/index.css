@@ -139,7 +139,7 @@ span{
 
 
 .arrow_left {
-    display: inline-block;
+    display: block;
     position: relative;
     left: 0;
     width: 20px;
@@ -152,7 +152,7 @@ span{
 }
 
 .arrow_right {
-    display: inline-block;
+    display: block;
     position: relative;
     left: 0;
     width: 20px;
@@ -174,12 +174,14 @@ span{
 
 }
 .out_info {
-    float: left;
+    float: right;
     font-size: 18px;
     font-weight: bold;
     color: rgba(215,215,215,1.00);
     position: relative;
-
+    margin-top: -20px;
+    text-align: center;
+    width: 300px;
 }
 
 .button_files {

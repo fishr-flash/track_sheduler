@@ -3,6 +3,7 @@ import '../css/index.css';
 import Tracks from "./Tracks";
 import TrackUploader from "./TrackUploader";
 
+
 const TrackScheduler = ()=>{
 
     return(
@@ -48,7 +49,7 @@ const TrackScheduler = ()=>{
                 </table>
 
             </section>
-           {/* <OutInfoLayer tracks={ tracks }/>*/}
+
         </main>
     )
 };
